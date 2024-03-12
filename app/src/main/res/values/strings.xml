@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">CleanArch</string>
+    <string name="facts">Facts</string>
+    <string name="web">Web</string>
+    <string name="api_info">API Info</string>
+</resources>
