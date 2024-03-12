@@ -32,10 +32,12 @@ import androidx.compose.material3.TextField
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults.topAppBarColors
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -43,7 +45,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
@@ -55,7 +56,6 @@ import com.example.cleanarch.data.Fact
 import com.example.cleanarch.data.View
 import com.example.cleanarch.data.arrayFacts
 import com.example.cleanarch.data.link
-import com.example.cleanarch.ui.theme.CleanArchTheme
 import com.google.gson.Gson
 
 class MainActivity : ComponentActivity() {
@@ -104,6 +104,8 @@ fun MainScreen(navController: NavHostController, viewModel: View) {
 @Composable
 fun FirstScreen(viewModel: View, navController :NavController) {
     val context = LocalContext.current
+
+    val catFacts by viewModel.catFacts.observeAsState(initial = emptyList())
     val textState = remember { mutableStateOf(TextFieldValue()) }
     Scaffold(
         topBar = @Composable {
@@ -134,10 +136,10 @@ fun FirstScreen(viewModel: View, navController :NavController) {
                     contentPadding = it
                 ) {
                     itemsIndexed(
-                        arrayFacts
+                        catFacts
                     ) { _, item ->
                         FactItem(
-                            fact = item,
+                            fact = item.fact,
                             modifier = Modifier.padding(8.dp)
                         )
                     }
@@ -179,6 +181,7 @@ fun FirstScreen(viewModel: View, navController :NavController) {
         }
     }
 }
+
 
 @OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")

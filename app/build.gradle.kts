@@ -56,6 +56,7 @@ dependencies {
     implementation ("com.google.accompanist:accompanist-coil:0.15.0")
     implementation(libs.androidx.activity.compose)
     implementation ("com.google.code.gson:gson:2.9.0")
+    implementation("androidx.compose.runtime:runtime-livedata:1.6.1")
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.ui)
     implementation(libs.androidx.ui.graphics)
